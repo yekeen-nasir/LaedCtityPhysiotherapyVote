@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Login</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;0,600;1,500&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <svg class="goniometer" viewBox="0 0 140 140" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path d="M20 120 A 100 100 0 0 1 120 20" stroke="currentColor" stroke-width="1.5"/>
+      <path d="M20 120 L 120 120 L 120 20" stroke="currentColor" stroke-width="1" stroke-dasharray="3 4" opacity="0.6"/>
+      <circle cx="20" cy="120" r="2.5" fill="currentColor"/>
+      <path d="M20 120 A 100 100 0 0 1 61 25.9" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+    </svg>
+    <div class="brand">
+      <img id="brand-logo" class="brand-logo" src="../assets/logo-placeholder.png" alt="" onerror="this.style.visibility='hidden'">
+      <div class="brand-text">
+        <span id="brand-name" class="brand-name">Association Elections</span>
+        <span id="brand-tag" class="brand-tag">Admin Console</span>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="card">
+      <div class="card-header">
+        <span class="eyebrow">Restricted Access</span>
+        <h1>Admin Login</h1>
+        <p class="mt-1">Sign in to manage the election.</p>
+      </div>
+
+      <form id="admin-login-form">
+        <div class="field">
+          <label for="email">Email</label>
+          <input type="email" id="email" autocomplete="username" required>
+        </div>
+
+        <div class="field">
+          <label for="password">Password</label>
+          <input type="password" id="password" autocomplete="current-password" required>
+        </div>
+
+        <button type="submit">Log In</button>
+        <p id="error-msg" class="status-msg"></p>
+      </form>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <span id="brand-footer">Association Elections</span> · Admin Console
+  </footer>
+
+    <script type="module" src="../js/admin-auth.js"></script>
+</body>
+</html>

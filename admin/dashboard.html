@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,500;0,600;1,500&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="admin-body">
+
+  <div class="dashboard-shell">
+
+    <!-- Sidebar -->
+    <aside class="dashboard-sidebar" id="sidebar">
+      <div class="sidebar-brand">
+        <svg class="goniometer-mini" viewBox="0 0 140 140" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M20 120 A 100 100 0 0 1 120 20" stroke="currentColor" stroke-width="1.5"/>
+          <path d="M20 120 L 120 120 L 120 20" stroke="currentColor" stroke-width="1" stroke-dasharray="3 4" opacity="0.6"/>
+          <circle cx="20" cy="120" r="2.5" fill="currentColor"/>
+        </svg>
+        <img id="brand-logo" class="brand-logo" src="../assets/logo-placeholder.png" alt="" onerror="this.style.visibility='hidden'">
+        <div class="brand-text">
+          <span id="brand-name" class="brand-name">Association Elections</span>
+          <span class="brand-tag">Admin Console</span>
+        </div>
+      </div>
+
+      <nav class="sidebar-nav" aria-label="Dashboard sections">
+        <a href="#branding-section" class="sidebar-link" data-section="branding-section">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="9.5" r="1.5"/><path d="M21 15l-5-5-9 9"/></svg>
+          <span>Branding</span>
+        </a>
+        <a href="#student-registration" class="sidebar-link" data-section="student-registration">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="9" cy="8" r="3"/><path d="M2 20c0-3.5 3-6 7-6s7 2.5 7 6"/><circle cx="17" cy="8" r="2.5"/><path d="M17 5.5c1.8.3 3 1.6 3 3.5"/></svg>
+          <span>Students</span>
+        </a>
+        <a href="#positions-section" class="sidebar-link" data-section="positions-section">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 6h16"/><path d="M4 12h16"/><path d="M4 18h10"/></svg>
+          <span>Positions</span>
+        </a>
+        <a href="#results-section" class="sidebar-link" data-section="results-section">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 20V10"/><path d="M11 20V4"/><path d="M18 20v-7"/></svg>
+          <span>Results</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <button id="logout-btn" class="sidebar-logout">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5"/><path d="M21 12H9"/></svg>
+          <span>Log out</span>
+        </button>
+      </div>
+    </aside>
+
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- Main -->
+    <div class="dashboard-main">
+
+      <header class="dashboard-topbar">
+        <button class="hamburger-btn" id="hamburgerBtn" aria-label="Toggle navigation" aria-expanded="false">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 7h16"/><path d="M4 12h16"/><path d="M4 17h16"/></svg>
+        </button>
+        <div class="topbar-title">
+          <span class="eyebrow">Control Panel</span>
+          <h1>Admin Dashboard</h1>
+        </div>
+      </header>
+
+      <main class="dashboard-content">
+
+        <!-- Branding -->
+        <section id="branding-section" class="admin-section">
+          <div class="admin-section-header">
+            <span class="eyebrow">Setup</span>
+            <h2>Association Branding</h2>
+            <p>This name and logo appear across the student portal and login pages.</p>
+          </div>
+
+          <form id="branding-form">
+            <div class="field">
+              <label for="assoc-name">Association Name</label>
+              <input type="text" id="assoc-name" required>
+            </div>
+
+            <div class="field">
+              <label for="assoc-description">Description</label>
+              <textarea id="assoc-description"></textarea>
+            </div>
+
+            <div class="field">
+              <label for="assoc-logo">Logo</label>
+              <div class="field-row">
+                <img id="current-logo-preview" class="logo-preview-frame" src="" alt="">
+                <input type="file" id="assoc-logo" accept="image/*">
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <button type="submit">Save Branding</button>
+              <p id="branding-status" class="status-msg"></p>
+            </div>
+          </form>
+        </section>
+
+        <!-- Student registration -->
+        <section id="student-registration" class="admin-section">
+          <div class="admin-section-header">
+            <span class="eyebrow">Access</span>
+            <h2>Register Students</h2>
+            <p>Only registered students can log in and vote. Add one at a time or upload a CSV.</p>
+          </div>
+
+          <div class="admin-columns">
+            <div class="admin-subcard" id="single-student-form">
+              <h3>Add One Student</h3>
+              <div class="field mt-2">
+                <label for="single-matric">Matric Number</label>
+                <input type="text" id="single-matric" placeholder="PHY/2023/001">
+              </div>
+              <div class="field mt-2">
+                <label for="single-name">Full Name</label>
+                <input type="text" id="single-name" placeholder="Jane Doe">
+              </div>
+              <button id="single-register-btn" class="btn-primary mt-2">Register Student</button>
+            </div>
+
+            <div class="divider divider-vertical"></div>
+
+            <div class="admin-subcard" id="bulk-student-form">
+              <h3>Bulk Register (CSV)</h3>
+              <p class="csv-hint">
+                Format: <code>matric_number,full_name</code> — include a header row.
+                <pre>matric_number,full_name
+PHY/2023/001,Jane Doe
+PHY/2023/002,John Smith</pre>
+              </p>
+              <input type="file" id="csv-file-input" accept=".csv">
+              <button id="bulk-register-btn" class="btn-primary mt-2">Upload &amp; Register</button>
+            </div>
+          </div>
+
+          <div id="registration-results"></div>
+        </section>
+
+        <!-- Positions & candidates -->
+        <section id="positions-section" class="admin-section">
+          <div class="admin-section-header">
+            <span class="eyebrow">Ballot Setup</span>
+            <h2>Positions &amp; Candidates</h2>
+            <p>Positions appear to students in the order you add them.</p>
+          </div>
+
+          <div class="admin-add-position inline-form">
+            <input type="text" id="new-position-title" placeholder="Position title (e.g. President)">
+            <button id="add-position-btn" class="btn-primary">Add Position</button>
+          </div>
+
+          <div id="positions-list"></div>
+        </section>
+
+        <!-- Results & publish -->
+        <section id="results-section" class="admin-section">
+          <div class="admin-section-header">
+            <span class="eyebrow">Election Day</span>
+            <h2>Results &amp; Publishing</h2>
+            <p>You can always preview live results below, whether or not they're published to students.</p>
+          </div>
+
+          <div id="publish-panel" class="publish-panel">
+            <span id="publish-status-label">Loading...</span>
+            <button id="toggle-publish-btn" class="btn-secondary">Loading...</button>
+          </div>
+
+          <div id="results-chart-container"></div>
+        </section>
+
+      </main>
+
+      <footer class="dashboard-footer">
+        <span id="brand-footer">Association Elections</span> · Admin Console
+      </footer>
+
+    </div>
+  </div>
+
+  <script type="module" src="../js/admin.js"></script>
+</body>
+</html>
