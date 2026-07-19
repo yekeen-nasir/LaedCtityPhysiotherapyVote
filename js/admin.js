@@ -162,10 +162,10 @@ function renderRegistrationResults(result) {
   if (result.succeeded && result.succeeded.length > 0) {
     html += `<div class="data-table-wrap">
       <h4>Registered (${result.succeeded.length})</h4>
-      <table class="data-table"><tr><th>Matric Number</th><th>Name</th><th>Temp Password</th></tr>`;
-    for (const s of result.succeeded) {
-      html += `<tr><td>${s.matric_number}</td><td>${s.full_name}</td><td><code>${s.temp_password}</code></td></tr>`;
-    }
+      <table class="data-table"><tr><th>Matric Number</th><th>Name</th></tr>`;
+      for (const s of result.succeeded) {
+        html += `<tr><td>${s.matric_number}</td><td>${s.full_name}</td></tr>`;
+      }
     html += `</table></div>`;
   }
 

@@ -11,14 +11,12 @@ const SUPABASE_URL = Deno.env.get("SUPABASE_URL")!;
 const SERVICE_ROLE_KEY = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
 const ADMIN_SECRET = Deno.env.get("ADMIN_FUNCTION_SECRET")!;
 
-function generateTempPassword(): string {
-  // 10-char readable temp password, e.g. "aX7kQ2mZpL"
-  const chars = "ABCDEFGHJKLMNPQRSTUVWXYZabcdefghjkmnpqrstuvwxyz23456789";
-  let pw = "";
-  for (let i = 0; i < 10; i++) {
-    pw += chars[Math.floor(Math.random() * chars.length)];
-  }
-  return pw;
+function normalize(str: string): string {
+  return str.trim().toLowerCase().replace(/\s+/g, "");
+}
+
+function derivePassword(matricNumber: string, fullName: string): string {
+  return normalize(matricNumber) + normalize(fullName);
 }
 
 function toFakeEmail(matricNumber: string): string {
@@ -60,7 +58,7 @@ serve(async (req) => {
 
     const supabaseAdmin = createClient(SUPABASE_URL, SERVICE_ROLE_KEY);
 
-    const succeeded: { matric_number: string; full_name: string; temp_password: string }[] = [];
+    const succeeded: { matric_number: string; full_name: string; }[] = [];
     const failed: { matric_number: string; reason: string }[] = [];
 
     for (const s of students) {
@@ -73,12 +71,12 @@ serve(async (req) => {
       }
 
       const email = toFakeEmail(matric_number);
-      const tempPassword = generateTempPassword();
+      const password = derivePassword(matric_number, full_name);
 
       // 1. Create the Auth user
       const { data: authData, error: authError } = await supabaseAdmin.auth.admin.createUser({
         email,
-        password: tempPassword,
+        password,
         email_confirm: true, // skip verification, since it's not a real email
       });
 
@@ -102,7 +100,7 @@ serve(async (req) => {
         continue;
       }
 
-      succeeded.push({ matric_number, full_name, temp_password: tempPassword });
+      succeeded.push({ matric_number, full_name });
     }
 
     return new Response(

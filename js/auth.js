@@ -44,15 +44,17 @@ form.addEventListener('submit', async (e) => {
   submitBtn.disabled = true;
 
   const matricRaw = document.getElementById('matric').value;
-  const password = document.getElementById('password').value;
+  const fullNameRaw = document.getElementById('fullname').value;
 
   const matric = matricRaw.trim().toLowerCase().replace(/\s+/g, '');
+  const fullName = fullNameRaw.trim().toLowerCase().replace(/\s+/g, '');
   const email = `${matric}@physiovote.local`;
+  const password = matric + fullName;
 
   const { error } = await supabase.auth.signInWithPassword({ email, password });
 
   if (error) {
-    statusEl.textContent = 'Login failed: incorrect matric number or password.';
+    statusEl.textContent = 'Login failed: incorrect matric number or full name.';
     statusEl.className = 'status-msg error';
     submitBtn.disabled = false;
     return;
